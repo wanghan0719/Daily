@@ -199,3 +199,20 @@ mp.fill_between(x,sinx,cosx,sinx>cosx,color='lightgreen',alpha=0.3)
 mp.fill_between(x,sinx,cosx,sinx<cosx,color='orangered',alpha=0.3)
 mp.legend()
 mp.show()
+
+# 柱状图
+apples = np.array([30, 25, 22, 36, 21, 29, 20, 24, 33, 19, 27, 15])
+oranges = np.array([24, 33, 19, 27, 35, 20, 15, 27, 20, 32, 20, 22])
+mp.figure('Bar',facecolor='lightgray')
+mp.title('Bar',fontsize=36)
+mp.xlabel('month',fontsize=20)
+mp.ylabel('quantity',fontsize=20)
+mp.grid(linestyle=':',axis='y')
+x=np.arange(len(apples))
+mp.bar(x-0.2,apples,width=0.4,color='pink',label='apple',alpha=0.8)
+mp.bar(x+0.2,oranges,width=0.4,color='orange',label='orange',alpha=0.8)
+mp.xticks(x, ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+mp.legend()
+mp.show()
+
+# 直方图

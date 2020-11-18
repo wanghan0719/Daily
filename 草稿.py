@@ -1,5 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as mp
 
-x = np.random.normal(175, 5, 3)
-print(x,x+3,type(x))
+x = np.linspace(0, 8 * np.pi, 1000)
+print(x,type(x))
