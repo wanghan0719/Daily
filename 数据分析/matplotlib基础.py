@@ -182,6 +182,20 @@ mp.title('Scatter', fontsize=37)
 #            marker='o')
 d = (x - 175) ** 2 + (y - 60) ** 2
 mp.scatter(x, y, c=d, s=80, alpha=0.5, label='Persons',
-           marker='o',cmap='rainbow')
+           marker='o', cmap='rainbow')
+mp.legend()
+mp.show()
+
+# 填充
+x = np.linspace(0, 8 * np.pi, 1000)
+sinx = np.sin(x)
+cosx = np.cos(x / 2) / 2
+mp.figure('Fill', facecolor='lightyellow')
+mp.title('Fill', fontsize=36)
+mp.plot(x, sinx, color='dodgerblue', linestyle='--', label=r'$y=sin(x)$')
+mp.plot(x, cosx, color='orangered', label=r'$y=\frac{cos(frac{x}{2})}{2}$')
+# 填充闭合区域
+mp.fill_between(x,sinx,cosx,sinx>cosx,color='lightgreen',alpha=0.3)
+mp.fill_between(x,sinx,cosx,sinx<cosx,color='orangered',alpha=0.3)
 mp.legend()
 mp.show()
