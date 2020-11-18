@@ -182,3 +182,5 @@ mp.scatter(x, y, color='dodgerblue', s=80, alpha=0.5, label='Persons',
            marker='o')
 mp.legend()
 mp.show()
+
+print('hello')
