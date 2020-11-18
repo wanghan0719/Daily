@@ -1,0 +1,88 @@
+在线词典
+1. 确定技术细节
+   确定并发方案？
+      process 多进程并发
+
+   什么套接字？
+      tcp套接字
+
+   数据存在哪 （数据库，文件）
+      数据库
+
+   细节点（历史记录显示，注册后，二级界面怎么处理）
+      显示前10个
+
+
+2. 建立数据模型
+   建立几个表，每个表怎么设计
+
+   单词表
+
+   用户信息表user:   id   name  passwd
+       create table user (id int primary key auto_increment,name char(20) not null,passwd char(127) not null);
+
+   查询记录表hist:   id  user_id  word_id  time
+
+   查历史记录： hist1
+       select name,word,time from hist where name='xxx';
+
+   hist1:
+    create table hist1 (id int primary key auto_increment,name char(20) not null,word varchar(32) not null,time datetime default now());
+
+   hist2:
+   create table hist2 (id int primary key auto_increment,word varchar(32) not null,time datetime default now(),user_id int,constraint user_fk foreign key(user_id) references user(id));
+
+    hist3:
+    create table hist3 (id int primary key auto_increment,time datetime default now(),user_id int,words_id smallint,constraint user1_fk foreign key(user_id) references user(id),constraint words_fk foreign key(words_id) references words(id));
+
+
+3. 结构设计：
+   那几个模块:  客户端   服务端 （逻辑处理  数据处理）
+
+   代码结构（如何封装，分几个py模块，模块之间是什么关系）
+   dict_client.py
+   dict_server.py
+   dict_data.py
+
+4. 建立好各个模块，搭建通信
+
+5. 分析具体功能，实现具体功能逻辑和数据处理
+   注册
+      客户单： 输入注册信息，发送请求，得到结果
+
+      服务端： 获取请求信息，判断是否允许注册，发送结果
+
+   登录
+
+   查单词
+   　　客户端：　输入单词，发送请求，得到结果
+
+   　　服务端：　接收请求，查找单词（插入历史记录），回复结果
+   　　
+   历史记录
+
+
+6. 协议 ： L  R  Q   H   E
+
+cookie
+
+import getpass
+
+cmd = getpass.getpass()
+功能： 隐藏输入内容
+
+* 该模块不能在pycharm下使用
+
+cookie:
+    import hashlib
+
+
+作业：　1. 完成历史记录查询工作
+　　　　2. 将自己的代码梳理完善
+　　　　3. 回顾ｈｔｔｐ２．０　　 http协议
+
+
+
+
+
+
