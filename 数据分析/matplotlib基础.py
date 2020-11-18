@@ -178,9 +178,10 @@ x = np.random.normal(175, 5, n)
 y = np.random.normal(60, 8, n)
 mp.figure('Scatter', facecolor='lightpink')
 mp.title('Scatter', fontsize=37)
-mp.scatter(x, y, color='dodgerblue', s=80, alpha=0.5, label='Persons',
-           marker='o')
+# mp.scatter(x, y, color='lightblue', s=80, alpha=0.5, label='Persons',
+#            marker='o')
+d = (x - 175) ** 2 + (y - 60) ** 2
+mp.scatter(x, y, c=d, s=80, alpha=0.5, label='Persons',
+           marker='o',cmap='rainbow')
 mp.legend()
 mp.show()
-
-print('hello')
