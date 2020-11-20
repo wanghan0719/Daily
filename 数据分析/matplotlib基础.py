@@ -202,6 +202,7 @@ mp.legend()
 mp.show()
 
 # 柱状图
+
 apples = np.array([30, 25, 22, 36, 21, 29, 20, 24, 33, 19, 27, 15])
 oranges = np.array([24, 33, 19, 27, 35, 20, 15, 27, 20, 32, 20, 22])
 mp.figure('Bar', facecolor='lightgray')
