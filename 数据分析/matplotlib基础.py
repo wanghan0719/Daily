@@ -217,7 +217,7 @@ mp.legend()
 mp.show()
 
 # 直方图
-img = cv.imread('lyf.jpg', flags=0)
+img = cv.imread('data/lyf.jpg', flags=0)
 # print(img.shape, img[0][0])
 # 绘制统计直方图
 mp.figure("Hist", facecolor='lightpink')
@@ -255,7 +255,7 @@ cntr = mp.contourf(x, y, z, 8, cmap='jet')
 mp.show()
 
 # 热图
-img = cv.imread('lyf.jpg', flags=0)
+img = cv.imread('data/lyf.jpg', flags=0)
 mp.figure('Colorbar', facecolor='lightgray')  # ColorBar:热成像图
 mp.title('Color')
 mp.imshow(img, cmap='gray')
@@ -277,7 +277,7 @@ mp.title('3D Scatter', fontsize=16)
 ax3d.set_xlabel('x')
 ax3d.set_ylabel('y')
 ax3d.set_zlabel('z')
-d = x**2 + y**2 + z**2
+d = x ** 2 + y ** 2 + z ** 2
 ax3d.scatter(x, y, z, s=80, alpha=0.7, marker='o', c=d, cmap='jet')
 mp.show()
 
@@ -290,10 +290,10 @@ z = (1 - x / 2 + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
 mp.figure('3d surface', facecolor='lightgray')
 mp.title('3d surface', fontsize=16)
 ax3d = mp.gca(projection='3d')
-ax3d.plot_surface(x, y, z, rstride=30,cstride=30,cmap='jet')
-ax3d.set_xlabel('x',fontsize=17)
-ax3d.set_ylabel('y',fontsize=17)
-ax3d.set_zlabel('z',fontsize=17)
+ax3d.plot_surface(x, y, z, rstride=30, cstride=30, cmap='jet')
+ax3d.set_xlabel('x', fontsize=17)
+ax3d.set_ylabel('y', fontsize=17)
+ax3d.set_zlabel('z', fontsize=17)
 mp.show()
 
 # 3d线框图
