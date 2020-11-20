@@ -1,5 +1,5 @@
 import math
-
+from mpl_toolkits.mplot3d import axes3d
 import matplotlib.gridspec as mg
 import matplotlib.pyplot as mp
 import numpy as np
@@ -217,11 +217,98 @@ mp.legend()
 mp.show()
 
 # 直方图
-img=cv.imread('lyf.jpg',flags=0)
-print(img.shape,img[0][0])
+img = cv.imread('lyf.jpg', flags=0)
+# print(img.shape, img[0][0])
 # 绘制统计直方图
-mp.figure("Hist",facecolor='lightpink')
-mp.title('Hist',fontsize=16)
-mp.hist(img.ravel(),bins=10,color='green',edgecolor='white',range=(0,255))
-mp.xticks(np.linspace(0,255,11))
+mp.figure("Hist", facecolor='lightpink')
+mp.title('Hist', fontsize=16)
+mp.hist(img.ravel(), bins=10, color='green', edgecolor='white', range=(0, 255), density=True)
+mp.xticks(np.linspace(0, 255, 11))
+mp.show()
+
+# 饼状图
+values = [15, 13.3, 8.5, 7.3, 4.62, 51.28]
+spaces = [0.05, 0.01, 0.01, 0.01, 0.01, 0.01]
+labels = ['Java', 'C', 'Python', 'C++', 'VB', 'Other']
+colors = ['dodgerblue', 'orangered', 'limegreen', 'violet', 'gold', 'blue']
+mp.figure('Pie', facecolor='lightgray')
+mp.axis('equal')
+mp.pie(values, spaces, labels, colors, '%.1f%%', shadow=True, startangle=0, radius=1)  # 绘制饼图
+mp.legend(loc='lower right')
+mp.show()
+
+# 等高线图
+n = 1000
+# 生成网格化坐标矩阵
+x, y = np.meshgrid(np.linspace(-3, 3, n), np.linspace(-3, 3, n))
+# 根据每个网格点坐标，通过某个公式计算z高度坐标，组成二维数组
+z = (1 - x / 2 + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
+# 绘制等高线
+mp.figure('Contour', facecolor='lightgray')
+mp.title('Contour', fontsize=17)
+mp.grid(linestyle=':')
+cntr = mp.contour(x, y, z, 8, colors='black', linewidths=0.5)  # 绘制等高线图
+# 为等高线添加标签
+mp.clabel(cntr, inline_spacing=1, fmt='%.1f', fontsize=10)
+# 填充等高线
+cntr = mp.contourf(x, y, z, 8, cmap='jet')
+mp.show()
+
+# 热图
+img = cv.imread('lyf.jpg', flags=0)
+mp.figure('Colorbar', facecolor='lightgray')  # ColorBar:热成像图
+mp.title('Color')
+mp.imshow(img, cmap='gray')
+mp.colorbar()  # 显示边条
+mp.show()
+
+# 3D图像绘制
+
+
+# 3d散点图
+n = 200
+x = np.random.normal(0, 1, n)
+y = np.random.normal(0, 1, n)
+z = np.random.normal(0, 1, n)
+
+mp.figure('3D Scatter')
+ax3d = mp.gca(projection='3d')
+mp.title('3D Scatter', fontsize=16)
+ax3d.set_xlabel('x')
+ax3d.set_ylabel('y')
+ax3d.set_zlabel('z')
+d = x**2 + y**2 + z**2
+ax3d.scatter(x, y, z, s=80, alpha=0.7, marker='o', c=d, cmap='jet')
+mp.show()
+
+# 绘制3d曲面图
+n = 1000
+# 生成网格化坐标矩阵
+x, y = np.meshgrid(np.linspace(-3, 3, n), np.linspace(-3, 3, n))
+# 根据每个网格点坐标，通过某个公式计算z高度坐标，组成二维数组
+z = (1 - x / 2 + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
+mp.figure('3d surface', facecolor='lightgray')
+mp.title('3d surface', fontsize=16)
+ax3d = mp.gca(projection='3d')
+ax3d.plot_surface(x, y, z, rstride=30,cstride=30,cmap='jet')
+ax3d.set_xlabel('x',fontsize=17)
+ax3d.set_ylabel('y',fontsize=17)
+ax3d.set_zlabel('z',fontsize=17)
+mp.show()
+
+# 3d线框图
+n = 500
+# 生成网格化坐标矩阵中所有坐标的x与所有坐标的y
+x, y = np.meshgrid(np.linspace(-3, 3, n), np.linspace(-3, 3, n))
+# 通过坐标矩阵中每个坐标的x与y，计算当前坐标的高度值z，组成二维数组
+z = (1 - x / 2 + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
+# z会把每个坐标点的x与y取出，计算结果作为坐标点的高度值 得到n*n的一个二维数组
+mp.figure('3d wireframe')
+ax3d = mp.gca(projection='3d')
+mp.title('3d surface', fontsize=16)
+ax3d.set_xlabel('X')
+ax3d.set_ylabel('Y')
+ax3d.set_zlabel('Z')
+ax3d.plot_wireframe(x, y, z, cstride=20, rstride=20, cmap='jet')
+mp.tight_layout()
 mp.show()
