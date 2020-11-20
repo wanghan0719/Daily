@@ -16,16 +16,21 @@ bubbles['color'] = np.random.uniform(0, 1, (n, 4))  # 生成颜色，范围0-1�
 
 # 简单动画
 def update(number):
-    #
-
-    bubbles['size'] += bubbles['growth']
     bubbles['size'] += bubbles['growth']  # 增加气泡大小
     # 每次执行update时，选择一个点，让它重新初始化属性（破裂）
     ind = number % 100
     bubbles[ind]['size'] = np.random.uniform(40, 70, 1)
     bubbles[ind]['position'] = np.random.uniform(0, 1, (1, 2))
-    anim.set_sizes(bubbles['size'])  # 重新设置大小
-    anim.set_offsets(bubbles['position'])  # 设置偏移位置
+    sc.set_sizes(bubbles['size'])  # 重新设置大小
+
+
+# 画散点图
+sc = mp.scatter(
+    bubbles['position'][:, 0],  # 获取所有气泡的x坐标
+    bubbles['position'][:, 1],  # 获取所有气泡的y坐标
+    bubbles['size'],  # 获取所有气泡的大小
+    color=bubbles['color']  # 获取所有气泡的颜色
+    )
 
 
 mp.figure('Animation', facecolor='lightgray')
