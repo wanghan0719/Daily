@@ -3,6 +3,7 @@ import math
 import matplotlib.gridspec as mg
 import matplotlib.pyplot as mp
 import numpy as np
+import cv2 as cv
 
 x = np.array([1, 2, 3, 4, 5])
 y = np.array([3, 6, 9, 12, 15])
@@ -195,24 +196,32 @@ mp.title('Fill', fontsize=36)
 mp.plot(x, sinx, color='dodgerblue', linestyle='--', label=r'$y=sin(x)$')
 mp.plot(x, cosx, color='orangered', label=r'$y=\frac{cos(frac{x}{2})}{2}$')
 # 填充闭合区域
-mp.fill_between(x,sinx,cosx,sinx>cosx,color='lightgreen',alpha=0.3)
-mp.fill_between(x,sinx,cosx,sinx<cosx,color='orangered',alpha=0.3)
+mp.fill_between(x, sinx, cosx, sinx > cosx, color='lightgreen', alpha=0.3)
+mp.fill_between(x, sinx, cosx, sinx < cosx, color='orangered', alpha=0.3)
 mp.legend()
 mp.show()
 
 # 柱状图
 apples = np.array([30, 25, 22, 36, 21, 29, 20, 24, 33, 19, 27, 15])
 oranges = np.array([24, 33, 19, 27, 35, 20, 15, 27, 20, 32, 20, 22])
-mp.figure('Bar',facecolor='lightgray')
-mp.title('Bar',fontsize=36)
-mp.xlabel('month',fontsize=20)
-mp.ylabel('quantity',fontsize=20)
-mp.grid(linestyle=':',axis='y')
-x=np.arange(len(apples))
-mp.bar(x-0.2,apples,width=0.4,color='pink',label='apple',alpha=0.8)
-mp.bar(x+0.2,oranges,width=0.4,color='orange',label='orange',alpha=0.8)
+mp.figure('Bar', facecolor='lightgray')
+mp.title('Bar', fontsize=36)
+mp.xlabel('month', fontsize=20)
+mp.ylabel('quantity', fontsize=20)
+mp.grid(linestyle=':', axis='y')
+x = np.arange(len(apples))
+mp.bar(x - 0.2, apples, width=0.4, color='pink', label='apple', alpha=0.8)
+mp.bar(x + 0.2, oranges, width=0.4, color='orange', label='orange', alpha=0.8)
 mp.xticks(x, ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
 mp.legend()
 mp.show()
 
 # 直方图
+img=cv.imread('lyf.jpg',flags=0)
+print(img.shape,img[0][0])
+# 绘制统计直方图
+mp.figure("Hist",facecolor='lightpink')
+mp.title('Hist',fontsize=16)
+mp.hist(img.ravel(),bins=10,color='green',edgecolor='white',range=(0,255))
+mp.xticks(np.linspace(0,255,11))
+mp.show()
