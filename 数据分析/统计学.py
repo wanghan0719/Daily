@@ -11,10 +11,11 @@ def dmy2ymd(dmy):
     return tm
 
 
-dates, opening_price, highest_price, lowest_price, closing_price = np.loadtxt('data/aapl.csv', delimiter=',',
-                                                                              usecols=(1, 3, 4, 5, 6), unpack=True,
-                                                                              dtype='M8[D],f8,f8,f8,f8',
-                                                                              converters={1: dmy2ymd})
+dates, opening_price, highest_price, lowest_price, closing_price, volume = np.loadtxt('data/aapl.csv', delimiter=',',
+                                                                                      usecols=(1, 3, 4, 5, 6, 7),
+                                                                                      unpack=True,
+                                                                                      dtype='M8[D],f8,f8,f8,f8,f8',
+                                                                                      converters={1: dmy2ymd})
 mp.figure('AAPL', facecolor='lightgray')
 mp.title('AAPL', fontsize=17)
 mp.xlabel('Date', fontsize=14)
@@ -29,6 +30,7 @@ ax.xaxis.set_minor_locator(md.DayLocator())
 # 把M8[D]转为md.datetime.datetime类型 matplotlib对于M8[D]类型识别不好
 dates = dates.astype(md.datetime.datetime)
 mp.plot(dates, closing_price, color='dodgerblue', linestyle='--', linewidth=2, label='APPL')
+
 # 绘制K线图
 # 绘制实体
 rise = closing_price > opening_price
@@ -37,11 +39,41 @@ color = ['white' if x else 'green' for x in rise]  # 列表推导式
 ecolor = np.zeros(rise.size, dtype='U5')  # 利用numpy掩码的功能设置边缘色
 ecolor[:] = 'green'
 ecolor[rise] = 'red'
-
 mp.bar(dates, closing_price - opening_price, width=0.8, bottom=opening_price, color=color, edgecolor=ecolor,
        zorder=3)
 # 绘制影线
 mp.vlines(dates, lowest_price, highest_price, colors=ecolor)
+
+# 绘制平均线
+mean = np.mean(closing_price)
+# print(mean)
+mp.hlines(mean, dates[0], dates[-1], color="blue", label='mean')
+
+# 加权平均数 成交量加权平均价格 VWAP
+vwap = np.average(closing_price, weights=volume)
+# print(vwap)
+mp.hlines(mean, dates[0], dates[-1], color="pink", label='VWAP')
+# 加权平均数 时间加权平均价格 TWAP
+times = np.linspace(1, 4, 30)
+twap = np.average(closing_price, weights=times)
+# print(twap)
+mp.hlines(mean, dates[0], dates[-1], color="blue", label='TWAP')
+
+# 最值
+max_val = np.max(closing_price)  # 最大值
+min_val = np.min(closing_price)  # 最小值
+print(min_val, "~", max_val)
+
+min_date = np.argmin(lowest_price)  # 返回最小值的下标/索引
+max_date = np.argmax(highest_price)  # 返回最大值的下标/索引
+print(dates[min_date], ":", lowest_price[min_date])  # 最低价发生日期及价格
+print(dates[max_date], ":", highest_price[max_date])  # 最高价发生日期及价格
+# 获取极差
+lowest_ptp = np.ptp(lowest_price)  # 最低价波动范围
+highest_ptp = np.ptp(highest_price)  # 最高价波动范围
+print("lowest_ptp:", lowest_ptp)
+print("highest_ptp:", highest_ptp)
+
 mp.legend()
 mp.tight_layout()
 mp.gcf().autofmt_xdate()  # 自动格式化当前X轴刻度
