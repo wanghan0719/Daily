@@ -39,40 +39,6 @@ mp.plot(dates, closing_price, color='dodgerblue', linestyle='-', linewidth=2, la
 # for i in range(ma5.size):
 #     ma5[i] = np.mean(closing_price[i:i + 5])
 # mp.plot(dates[4:], ma5, color='orangered', label='MA-5')
-# 用卷积运算实现5日均线图
-ma_conv_5 = np.convolve(closing_price, np.ones(5) / 5, mode='valid')
-# mp.plot(dates[4:],  # 从第五天开始绘制
-#         ma_conv_5,  # 数据
-#         color="orangered",
-#         label="MA_5")
-# 通过e^x 获取一组期望的卷积核，使用自定义卷积核做卷积运算，实现5日均线
-kernel = np.exp(np.linspace(-1, 0, 5))[::-1]
-kernel = kernel / kernel.sum()
-ma53 = np.convolve(closing_price, kernel, mode='valid')
-mp.plot(dates[4:], ma53, color='blue', label='MA-53')
-
-# 10日均线图
-ma10 = np.zeros(closing_price.size - 9)
-for i in range(ma10.size):
-    ma10[i] = np.mean(closing_price[i:i + 10])
-# mp.plot(dates[9:], ma10, color='green', label='MA-10')
-
-# 绘制布林带，上轨和下轨线
-stds = np.zeros(ma53.size)
-for i in range(stds.size):
-    stds[i] = np.std(closing_price[i:i + 5])
-upper = ma53 + 2 * stds
-lower = ma53 - 2 * stds
-mp.plot(dates[4:], upper, color='red', label='upper')
-mp.plot(dates[4:], lower, color='red', label='lower')
-mp.fill_between(dates[4:], upper, lower, upper > lower, color='red', alpha=0.2)
-
-# 量化分析建模
-
-mp.legend()
-mp.tight_layout()
-mp.gcf().autofmt_xdate()  # 自动格式化当前X轴刻度
-mp.show()
 
 # 卷积函数
 """
@@ -96,3 +62,42 @@ print("same:", same_conv)
 
 valid_conv = np.convolve(a, b, "valid")  # 有效卷积
 print("valid:", valid_conv)
+
+# 用卷积运算实现5日均线图
+ma_conv_5 = np.convolve(closing_price, np.ones(5) / 5, mode='valid')
+# mp.plot(dates[4:],  # 从第五天开始绘制
+#         ma_conv_5,  # 数据
+#         color="orangered",
+#         label="MA_5")
+
+# 通过e^x 获取一组期望的卷积核，使用自定义卷积核做卷积运算，实现5日均线
+kernel = np.exp(np.linspace(-1, 0, 5))[::-1]
+kernel = kernel / kernel.sum()
+ma53 = np.convolve(closing_price, kernel, mode='valid')
+mp.plot(dates[4:], ma53, color='blue', label='MA-53')
+
+# 10日均线图
+ma10 = np.zeros(closing_price.size - 9)
+for i in range(ma10.size):
+    ma10[i] = np.mean(closing_price[i:i + 10])
+# mp.plot(dates[9:], ma10, color='green', label='MA-10')
+
+# 绘制布林带，上轨和下轨线
+stds = np.zeros(ma53.size)
+for i in range(stds.size):
+    stds[i] = np.std(closing_price[i:i + 5])
+upper = ma53 + 2 * stds
+lower = ma53 - 2 * stds
+mp.plot(dates[4:], upper, color='red', label='upper')
+mp.plot(dates[4:], lower, color='red', label='lower')
+mp.fill_between(dates[4:], upper, lower, upper > lower, color='red', alpha=0.2)
+mp.legend()
+mp.tight_layout()
+mp.gcf().autofmt_xdate()  # 自动格式化当前X轴刻度
+mp.show()
+
+# 量化分析建模
+
+
+
+
