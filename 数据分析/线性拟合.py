@@ -31,7 +31,6 @@ mp.title("APPL K-Line")
 mp.xlabel("Day", fontsize=12)
 mp.ylabel("Price", fontsize=12)
 
-
 # 获取坐标轴
 ax = mp.gca()
 # 设置主刻度定位器为周定位器(每周一显示刻度文本)
@@ -63,7 +62,6 @@ x = np.linalg.lstsq(A, Y, rcond=None)[0]  # x中包含了k, b的值
 trend_line = x[0] * days + x[1]  # y = kx + b
 mp.plot(dates, trend_line, color="orangered", label="Trend Line")
 
-
 if x[0] > 0:
     print("总体趋势上涨")
 elif x[0] < 0:
@@ -71,7 +69,7 @@ elif x[0] < 0:
 else:
     print("总体趋势持平")
 
-# 顺序放最后，否则会报错
+# 顺序放最后，否则会报错，matplotlib 放在numpy之后
 mp.plot(dates, open_prices, color="dodgerblue", linestyle="--")
 mp.gcf().autofmt_xdate()  # 旋转、共享日期显示
 
