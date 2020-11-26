@@ -1,11 +1,21 @@
+# -*- coding:utf-8 -*-
 import numpy as np
+import matplotlib.pyplot as mpl
+p = [-3, 1, 2, 1]
+x = np.linspace(-10, 10, 1000)
+y = np.polyval(p, x)
+# P = np.polyfit(x, y, 2)
+# y1 = np.polyval(P, x)
 
-data=[
-	('zs', [90, 80, 85], 15),
-	('ls', [92, 81, 83], 16),
-	('ww', [95, 85, 95], 15)
-]
-c = np.array(data, dtype={'names': ['name', 'scores', 'ages'],
-                    'formats': ['U3', '3int32', 'int32']})
-print(c,type(c),c.shape)
-print(c[0])
+mpl.figure('nihe', facecolor='gray')
+mpl.title("polyfit", fontsize=10)
+mpl.plot(x, y, color='red', linestyle=':')
+
+P = np.polyfit(x, y, 2)
+y1 = np.polyval(P, x)
+
+
+
+
+mpl.plot(x, y1, color='blue', linestyle='-')
+mpl.show()

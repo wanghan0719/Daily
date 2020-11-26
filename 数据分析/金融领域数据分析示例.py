@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as mp
 import matplotlib.dates as md
 import datetime as dt
+import scipy
 
 
 def dmy2ymd(dmy):
@@ -110,11 +111,12 @@ for i in range(pred_prices.size):
     # 通过后三天股价，与x中保存的模型参数，求出预测结果
     pred_price = x.dot(B)
     pred_prices[i] = pred_price
+# 设置图像格式
 mp.figure('linear_prediction', facecolor='lightgray')
 mp.title('linear_prediction', fontsize=17)
 mp.xlabel('Date', fontsize=14)
 mp.ylabel('Closing Price', fontsize=14)
-mp.grid(linestyle=':')
+
 ax = mp.gca()
 # 设置主刻度定位器为周定位器(每周一显示文本刻度)
 ax.xaxis.set_major_locator(md.WeekdayLocator(byweekday=md.MO))
@@ -124,8 +126,12 @@ ax.xaxis.set_minor_locator(md.DayLocator())
 # 把M8[D]转为md.datetime.datetime类型 matplotlib对于M8[D]类型识别不好
 dates = dates.astype(md.datetime.datetime)
 mp.plot(dates, closing_price, color='dodgerblue', linestyle='-', linewidth=2, label='APPL')
+# 绘制线性预测线
 mp.plot(dates[2 * N:], pred_prices, 'o-', color='orangered', linestyle='-', linewidth=2, label='prediction')
+
+
 mp.legend()
 mp.tight_layout()
 mp.gcf().autofmt_xdate()  # 自动格式化当前X轴刻度
 mp.show()
+

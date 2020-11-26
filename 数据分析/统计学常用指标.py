@@ -123,7 +123,4 @@ print('相关系数：', coef)
 m = np.corrcoef(bhp_closing_price, vale_closing_price)
 print('相关系数：', m[0, 1])
 
-mp.legend()
-mp.tight_layout()
-mp.gcf().autofmt_xdate()  # 自动格式化当前X轴刻度
-mp.show()
+
