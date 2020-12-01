@@ -93,7 +93,62 @@ data = {'one': pd.Series([1, 2, 3], index=['a', 'b', 'c']),
         'two': pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])}
 df = pd.DataFrame(data)
 print(df)
+print('-' * 100)
 
 """
 核心数据结构操作
 """
+# 访问列数据
+print(df['one'])
+print(df[['one', 'two']])
+
+# 列添加
+data = {'Name': ['Tom', 'Jack', 'Steve', 'Ricky'], 'Age': [28, 34, 29, 42]}
+df = pd.DataFrame(data, index=['s1', 's2', 's3', 's4'])
+# df['score'] = [100, 90, 80,79]
+df['score'] = pd.Series([100, 90, 80, 79], index=['s1', 's2', 's3', 's4'])
+print(df)
+
+# 列删除
+# del df['score']
+df.pop('score')
+print(df)
+
+# 行访问
+# 1)可以使用切片的方式(切片的一个位为非负数)
+print(df[1:3])
+print(df[3:])
+print(df[0:-3])
+# 2)loc方法 loc方法是针对DataFrame索引名称的切片方法。
+print(df.loc['s1'])  # 返回Series
+print(df.loc[['s1', 's3']])
+# 3)**iloc**和loc区别iloc接收的必须是行索引和列索引的位置。支持切片
+print(df.iloc[0])  # 返回Series
+print(df.iloc[[0, 3]])
+
+# 行添加
+df = pd.DataFrame([['zs', 12], ['ls', 4]], columns=['Name', 'Age'])
+df2 = pd.DataFrame([['ww', 16], ['zl', 8]], columns=['Name', 'Age'])
+df = df.append(df2)
+print(df)
+# df.index = range(4)  # 修改索引
+# print(df)
+
+# 行删除
+# 删除index为0的行
+# df = df.drop(0)
+# print(df)
+
+# 修改DataFrame中的数据
+# 更改DataFrame中的数据，原理是将这部分数据提取出来，重新赋值为新的数据。
+print(df['Age'][1][:1][1])
+
+# DataFrame常用属性
+print(df.axes)
+print(df['Age'].dtype)
+print(df.empty)
+print(df.ndim)
+print(df.size)
+print(df.values)
+print(df.head(3)) # df的前三行
+print(df.tail(3)) # df的后三行
