@@ -152,3 +152,4 @@ print(df.size)
 print(df.values)
 print(df.head(3)) # df的前三行
 print(df.tail(3)) # df的后三行
+
