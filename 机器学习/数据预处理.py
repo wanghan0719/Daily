@@ -64,7 +64,7 @@ print('-' * 100)
 有些业务并不需要分析矩阵的详细完整数据（比如图像边缘识别只需要分析出图像边缘即可），可以根据一个事先给定的阈值，
 用0和1表示特征值不高于或高于阈值。二值化后的数组中每个元素非0即1，达到简化数学模型的目的。
 """
-img = cv.imread('lyf.jpg', flags=0)
+img = cv.imread('data/lyf.jpg', flags=0)
 # print(img.shape)
 # 对img进行二值化处理
 bin = sp.Binarizer(threshold=127)
