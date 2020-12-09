@@ -7,7 +7,7 @@ libs = {"numpy", "matplotlib", "pillow", "sklearn", "requests", \
         "pandas", "pyopengl", "pypdf2", "docopt", "pygame"}
 try:
     for lib in libs:
-        os.system("pip3 install" + lib)
+        os.system("pip3 install " + lib)
     print("Successful")
 except:
     print("Failed Somehow")
