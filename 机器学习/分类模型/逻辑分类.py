@@ -71,7 +71,7 @@ x = np.array([
 y = np.array([0, 0, 0, 1, 1, 1, 2, 2, 2])
 
 # 使用这组样本训练逻辑分类模型
-model = lm.LogisticRegression(solver='liblinear', C=1)
+model = lm.LogisticRegression(solver='liblinear', C=100)
 model.fit(x, y)
 r = model.predict([[3, -1], [5, 16]])
 print(r)
