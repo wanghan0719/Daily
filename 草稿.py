@@ -1,3 +1,4 @@
-lis = { "name" : "Taobao", "age" : 100}
-for i in lis.items():
-    print(i[1])
+files = ['0000000000.txt', '0000000004.txt', '0000000002.txt', '0000000001.txt', '0000000003.txt', '0000000006.txt',
+         '0000000005.txt']
+files.sort(key=lambda x:int(x[:-4]))
+print(files)
