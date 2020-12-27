@@ -101,7 +101,33 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # 调整警告级别
 #     sess.run(init_op)
 #     print(sess.run([a, var])) #执行多个op
 
+"""
+可视化
+"""
+''' 变量OP
+1. 变量OP能够持久化保存，普通张量则不可
+2. 当定义一个变量OP时，在会话中进行初始化
+3. name参数：在tensorboard使用的时候显示名字，可以让相同的OP进行区分
+'''
+# 创建普通张量
+a = tf.constant([1, 2, 3, 4, 5])
+# 创建变量
+var = tf.Variable(tf.compat.v1.random_normal([2, 3], mean=0.0, stddev=1.0),
+                  name="variable")
 
+b = tf.constant(3.0, name="a")
+c = tf.constant(4.0, name="b")
+d = tf.add(b, c, name="add")
+
+# 变量必须显式初始化, 这里定义的是初始化操作，并没有运行
+init_op = tf.compat.v1.global_variables_initializer()
+
+# with tf.compat.v1.Session() as sess:
+#     sess.run(init_op)
+#     # 将程序图结构写入事件文件
+fw = tf.summary.create_file_writer("summary")
+fw.flush()
+# print(sess.run([a, var]))
 
 
 
