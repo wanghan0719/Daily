@@ -35,7 +35,7 @@ with tf.Session() as sess:  # 通过Session运行op
     fw = tf.summary.FileWriter("summary", graph=sess.graph)  # 定义文件写入器
 
     # 判断模型文件是否存在，存在则加载，不存在则创建
-    if os.path.exists('model/linear_model/checkpoint'):  # 模型已存在
+    if os.path.exists('../model/linear_model/checkpoint'):  # 模型已存在
         saver.restore(sess, 'model/linear_model/')  # 加载模型
 
     # 打印初始权重、偏移值

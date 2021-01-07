@@ -21,7 +21,7 @@ def csv_reader(filelist):  # filelist文件列表
 
 
 if __name__ == '__main__':
-    filepath = 'data/test_data'
+    filepath = '../data/test_data'
     file_name = os.listdir(filepath)
     file_list = [filepath + '/' + i for i in file_name]
     print(file_list)

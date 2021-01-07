@@ -22,7 +22,7 @@ def img_reader(filelist):  # filelist文件列表
 
 
 if __name__ == '__main__':
-    filepath = 'data/test_img'
+    filepath = '../data/test_img'
     file_name = os.listdir(filepath)
     file_list = [filepath + '/' + i for i in file_name]
     print(file_list)
