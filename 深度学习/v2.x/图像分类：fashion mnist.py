@@ -29,8 +29,8 @@ plt.show()
 # 构建模型
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),  # 将图像格式从二维数组（28 x 28 像素）转换成一维数组（28 x 28 = 784 像素）
-    keras.layers.Dense(units=128, activation='relu'),  # 第二层全连接层
-    keras.layers.Dense(units=10)
+    keras.layers.Dense(units=128, activation='relu'),  # 第一层全连接层
+    keras.layers.Dense(units=10)  # 第二层全连接层
 ])
 
 # 编译模型
