@@ -29,6 +29,7 @@ mp.title('Frequency Domain')
 mp.plot(freqs[freqs > 0], pows[freqs > 0], color='green', label='freq & pow')
 mp.grid(linestyle=':')
 mp.legend()
+mp.show()
 
 """
 基于傅里叶变换的频域滤波

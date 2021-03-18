@@ -44,4 +44,4 @@ def say_goodbye():
 
 
 say_hello()
-say_goodbye()
+# say_goodbye()

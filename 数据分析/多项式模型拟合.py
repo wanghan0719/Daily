@@ -66,3 +66,4 @@ mp.gcf().autofmt_xdate()  # 旋转、共享日期显示
 mp.grid(linestyle="--")
 mp.legend()
 mp.show()
+np.diff()
