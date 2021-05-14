@@ -107,7 +107,7 @@ for i in range(pred_prices.size):
         A[j,] = closing_price[i + j:i + j + N]
     B = closing_price[i + N:i + N * 2]
     # 通过A与B,调用lstsq方法求得x
-    x = np.linalg.lstsq(A, B)[0]
+    x = np.linalg.lstsq(A, B,rcond=None)[0]
     # 通过后三天股价，与x中保存的模型参数，求出预测结果
     pred_price = x.dot(B)
     pred_prices[i] = pred_price
